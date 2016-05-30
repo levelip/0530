@@ -1,0 +1,3 @@
+https://blog.itnmg.net/centos7-ipsec-vpn/
+https://github.com/philpl/setup-simple-ipsec-l2tp-vpn/blob/master/setup_centos.sh
+http://www.bkjia.com/Linuxjc/928373.html

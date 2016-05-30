@@ -1,0 +1,7 @@
+yes | cp ipsec.conf /etc/strongswan/
+yes | cp charon.conf /etc/strongswan/strongswan.d/
+yes | cp ipsec.secrets /etc/strongswan/
+yes | cp ipsec.conf /etc/strongswan/
+yes | cp xl2tpd.conf /etc/xl2tpd/
+yes | cp  options.xl2tpd /etc/ppp/
+yes | cp  chap-secrets /etc/ppp/

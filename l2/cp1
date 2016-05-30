@@ -1,0 +1,7 @@
+cp /etc/strongswan/ipsec.conf ./
+cp /etc/strongswan/strongswan.d/charon.conf ./
+cp /etc/strongswan/ipsec.secrets ./
+cp /etc/strongswan/ipsec.conf ./
+cp /etc/xl2tpd/xl2tpd.conf ./
+cp  /etc/ppp/options.xl2tpd ./
+cp  /etc/ppp/chap-secrets ./

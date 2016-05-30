@@ -1,0 +1,30 @@
+iptables -N secin
+iptables -A secin -i ipsec0 -j ACCEPT
+iptables -A INPUT -j secin
+
+iptables -N secout
+iptables -A secout -i ipsec0 -j ACCEPT
+iptables -A FORWARD -j secout
+
+iptables -N ipsec
+iptables -A ipsec -p udp --destination-port 500 -j ACCEPT
+iptables -A ipsec -p udp --destination-port 4500 -j ACCEPT
+iptables -A ipsec -p 50 -j ACCEPT
+iptables -A ipsec -p 51 -j ACCEPT
+iptables -A block -i ppp0 -j ipsec
+iptables -A block -i ippp0 -j ipsec
+
+iptables -N l2tp
+iptables -A l2tp -p udp --destination-port 500 --dst 45.32.254.146 -j ACCEPT
+iptables -A l2tp -p udp --destination-port 1701 --dst 45.32.254.146 -j ACCEPT
+iptables -A l2tp -p udp --destination-port 4500 --dst 45.32.254.146 -j ACCEPT
+iptables -A l2tp -p 50 --dst 45.32.254.146 -j ACCEPT
+iptables -A l2tp -p 51 --dst 45.32.254.146 -j ACCEPT
+iptables -I FORWARD -j l2tp
+iptables -t nat -N l2tp
+iptables -t nat -A l2tp -i $RED_DEV -p tcp --dport 500 -j DNAT --to 192.169.0.7:500
+iptables -t nat -A l2tp -i $RED_DEV -p tcp --dport 1701 -j DNAT --to 192.169.0.7:1701
+iptables -t nat -A l2tp -i $RED_DEV -p tcp --dport 4500 -j DNAT --to 192.169.0.7:4500
+iptables -t nat -A l2tp -i $RED_DEV -p 50 -j DNAT --to 192.169.0.7
+iptables -t nat -A l2tp -i $RED_DEV -p 51 -j DNAT --to 192.169.0.7
+iptables -t nat -A PREROUTING -j l2tp

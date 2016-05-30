@@ -1,0 +1,10 @@
+rpm -ivh https://github.com/levelip/17/raw/master/pptp/dkms-2.2.0.3-21.el5.art.noarch.rpm
+rpm -ivh https://github.com/levelip/17/raw/master/pptp/kernel_ppp_mppe-1.0.2-3dkms.noarch.rpm
+yum install compat-libstdc* -y
+yum install glibc* -y
+yum install nss-softokn-freebl* -y
+yum -y install openssl098e
+rpm -ivh https://github.com/levelip/17/raw/master/pptp/ppp-2.4.5-17.0.rhel6.i686.rpm
+yum install ppp iptables pptpd
+service pptpd start
+iptables -A INPUT -p tcp --dport 1723 -j ACCEPT
