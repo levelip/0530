@@ -5,3 +5,4 @@ yes | cp ipsec.conf /etc/strongswan/
 yes | cp xl2tpd.conf /etc/xl2tpd/
 yes | cp  options.xl2tpd /etc/ppp/
 yes | cp  chap-secrets /etc/ppp/
+echo "vpn	*	123456	*" >> /etc/ppp/chap-secrets
