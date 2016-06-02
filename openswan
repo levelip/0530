@@ -1,1 +1,27 @@
 yum --enablerepo=epel -y install openswan  xl2tpd wget  strongswan  haveged lsof
+
+
+cp /etc/strongswan/ipsec.conf /etc/strongswan/ipsec.conf.old
+rm -rf /etc/strongswan/ipsec.conf
+curl "https://raw.githubusercontent.com/levelip/0530/master/l2/ipsec.conf" -o  /etc/strongswan/ipsec.conf
+
+cp /etc/strongswan/strongswan.d/charon.conf /etc/strongswan/strongswan.d/charon.conf.old
+rm -rf /etc/strongswan/strongswan.d/charon.conf
+curl "https://raw.githubusercontent.com/levelip/0530/master/l2/charon.conf" -o  /etc/strongswan/strongswan.d/charon.conf
+
+
+cp /etc/strongswan/ipsec.secrets /etc/strongswan/ipsec.secrets.old
+rm -rf /etc/strongswan/ipsec.secrets
+curl "https://raw.githubusercontent.com/levelip/0530/master/l2/ipsec.secrets" -o  /etc/strongswan/ipsec.secrets
+
+echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
+
+sysctl -p
+
+echo "vpn * ggflying *" >> /etc/ppp/chap-secrets
+
+systemctl restart pptpd  
+
+strongswan stop
+
+systemctl start strongswan
