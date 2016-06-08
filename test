@@ -1,9 +1,7 @@
+IPADDR_GLOBAL=$(/sbin/ip addr show eth0 2>/dev/null | /bin/grep 'inet ' | /bin/sed -e 's/.*inet \([^ ]*\)\/.*/\1/')
 yum --enablerepo=epel -y install  make libpcap iptables gcc-c++ logrotate tar cpio perl pam tcp_wrappers kernel-devel gcc iptables-services perl ppp*  pptpd
 
-
-
 curl "https://raw.githubusercontent.com/levelip/config/master/pptpd.conf" -o  /etc/pptpd.conf 
-
 curl "https://raw.githubusercontent.com/levelip/config/master/options.pptpd" -o  /etc/ppp/options.pptpd
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
@@ -13,7 +11,7 @@ systemctl disable firewalld.service
  
 service iptables start
 
-iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source  106.184.0.140
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source   
 service iptables stop
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -A INPUT -i eth0 -p tcp --dport 1723 -j ACCEPT
