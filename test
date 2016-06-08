@@ -11,9 +11,9 @@ systemctl disable firewalld.service
  
 service iptables start
 
-iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source   
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source   ${IPADDR_GLOBAL}
 service iptables stop
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
 iptables -A INPUT -i eth0 -p tcp --dport 1723 -j ACCEPT
 iptables -A INPUT -i eth0 -p gre -j ACCEPT
 iptables -A FORWARD -i ppp+ -o eth0 -j ACCEPT
